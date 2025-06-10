@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = new Product();
 
-        product.setId(null);
+        product.setProductId(null);
         product.setImageUrl("default.png");
         product.setCategory(category);
         product.setProductName(createProductDto.getProductName());
