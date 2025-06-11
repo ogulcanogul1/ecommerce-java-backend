@@ -24,6 +24,7 @@ public class ServiceResult<T> {
         return new ServiceResult<>(true,message,data);
     }
 
+
     public static <T> ServiceResult<T> error(String message){
         return new ServiceResult<>(false,message);
     }

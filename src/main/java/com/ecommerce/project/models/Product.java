@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -27,4 +30,7 @@ public class Product {
     @ManyToOne(optional = true, cascade = { CascadeType.PERSIST , CascadeType.MERGE })
     @JoinColumn(name = "seller_id", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "product")
+    List<CartItem> cartItems = new ArrayList<>();
 }

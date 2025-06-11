@@ -37,6 +37,7 @@ public class User {
         this.password = password;
     }
 
+
     @OneToMany(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Address> addresses;
 
@@ -51,6 +52,9 @@ public class User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<>();
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 
 }

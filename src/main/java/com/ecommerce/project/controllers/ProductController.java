@@ -32,7 +32,7 @@ public class ProductController {
             @RequestParam(value="pageSize", required = false) Integer pageSize,
             @RequestParam(value="pageNumber", required = false) Integer pageNumber,
             @RequestParam(value="sortDirection", required = false, defaultValue = AppConstants.DEFAULT_ORDER_SORT_DIRECTION) String sortDirection,
-            @RequestParam(value="sortBy", required = false, defaultValue = AppConstants.DEFAULT_ORDER_BY) String sortBy
+            @RequestParam(value="sortBy", required = false, defaultValue = AppConstants.DEFAULT_PRODUCT_ORDER_BY) String sortBy
     ) {
         return new ResponseEntity<>(productService.getProducts(pageSize,pageNumber,sortDirection,sortBy), HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class ProductController {
              @RequestParam(value = "pageSize", required = false) Integer pageSize,
              @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
              @RequestParam(value = "sortDirection", required = false, defaultValue = AppConstants.DEFAULT_ORDER_SORT_DIRECTION) String sortDirection,
-                @RequestParam(value = "sortBy", required = false, defaultValue = AppConstants.DEFAULT_ORDER_BY) String sortBy
+                @RequestParam(value = "sortBy", required = false, defaultValue = AppConstants.DEFAULT_PRODUCT_ORDER_BY) String sortBy
     ){
         return new ResponseEntity<>(productService.getProductsByCategory(categoryId,pageSize,pageNumber,sortDirection,sortBy), HttpStatus.OK);
     }
@@ -70,7 +70,7 @@ public class ProductController {
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "pageNumber", required = false) Integer pageNumber,
             @RequestParam(value = "sortDirection", required = false, defaultValue = AppConstants.DEFAULT_ORDER_SORT_DIRECTION) String sortDirection,
-            @RequestParam(value = "sortBy", required = false, defaultValue = AppConstants.DEFAULT_ORDER_BY) String sortBy
+            @RequestParam(value = "sortBy", required = false, defaultValue = AppConstants.DEFAULT_PRODUCT_ORDER_BY) String sortBy
     ) {
         return new ResponseEntity<>(productService.getProductsByKeyword(keyword, pageSize, pageNumber, sortDirection, sortBy), HttpStatus.OK);
     }

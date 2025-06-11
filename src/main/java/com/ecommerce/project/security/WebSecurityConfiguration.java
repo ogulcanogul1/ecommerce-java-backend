@@ -11,6 +11,8 @@ import org.springframework.security.authentication.password.CompromisedPasswordC
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +32,8 @@ public class WebSecurityConfiguration {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(csrf -> csrf.disable())
+                .headers(hshc-> hshc.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         http.exceptionHandling(exception -> exception.authenticationEntryPoint(unAuthorizeEntryPoint))
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -40,10 +43,12 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/api/signin/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
                         .requestMatchers("/api/admin/**").permitAll()
                         .requestMatchers("/images/**").permitAll()
-
-                        .anyRequest().authenticated());
+                        .requestMatchers("/assets/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        );
 
         http.formLogin(Customizer.withDefaults());
 
@@ -54,7 +59,10 @@ public class WebSecurityConfiguration {
         return http.build();
     }
 
-
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/css/**", "/js/**","/assets/**", "/images/**", "/webjars/**");
+    }
 //    @Bean
 //    public AuthTokenFilter authTokenFilter() {
 //        return new AuthTokenFilter();

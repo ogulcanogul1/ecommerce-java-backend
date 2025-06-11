@@ -20,6 +20,8 @@ public class UserDetailsImpl implements UserDetails {
 
     public static final long serialVersionUID = 1L;
 
+    private Long id;
+
     private String username;
     private String email;
 
@@ -33,7 +35,7 @@ public class UserDetailsImpl implements UserDetails {
         for(Role role : user.getRoles()) {
             temp_authorities.add(new SimpleGrantedAuthority(role.getRoleName().toString()));
         }
-        return new UserDetailsImpl(user.getUsername(), user.getEmail(), user.getPassword(), temp_authorities);
+        return new UserDetailsImpl(user.getUserId(),user.getUsername(), user.getEmail(), user.getPassword(), temp_authorities);
     }
 
     @Override

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -26,5 +27,9 @@ public class Role {
 
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Collection<User> users;
+    private Collection<User> users = new ArrayList<>();
+
+    public Role(AppRole roleName) {
+        this.roleName = roleName;
+    }
 }
