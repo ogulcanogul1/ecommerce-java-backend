@@ -1,14 +1,17 @@
 package com.ecommerce.project.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 @Entity
 @Table(name = "addresses")
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
 public class Address {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -24,7 +27,6 @@ public class Address {
 
     private String zip;
 
-    @ToString.Exclude
     @ManyToOne(optional = true, cascade = { jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.MERGE })
     @JoinColumn(name = "user_id", nullable = true)
     private User user;

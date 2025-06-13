@@ -9,6 +9,7 @@ import com.ecommerce.project.exceptions.APIException;
 import com.ecommerce.project.exceptions.ResourceNotFoundException;
 import com.ecommerce.project.models.Category;
 import com.ecommerce.project.models.Product;
+import com.ecommerce.project.repositories.CartItemRepository;
 import com.ecommerce.project.repositories.CategoryRepository;
 import com.ecommerce.project.repositories.ProductRepository;
 import com.ecommerce.project.result.ServiceResult;
@@ -31,15 +32,17 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
     private final CategoryRepository categoryRepository;
     private final FileService fileService;
+    private final CartItemRepository cartItemRepository;
 
     @Value("${project.image}")
     private String path;
 
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, CategoryRepository categoryRepository, FileService fileService) {
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, CategoryRepository categoryRepository, FileService fileService, CartItemRepository cartItemRepository) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
         this.categoryRepository = categoryRepository;
         this.fileService = fileService;
+        this.cartItemRepository = cartItemRepository;
     }
 
     @Override
@@ -136,6 +139,7 @@ public class ProductServiceImpl implements ProductService {
         product.setQuantity(productRequest.getQuantity());
 
         productRepository.save(product);
+
 
         ProductDto dto = modelMapper.map(product, ProductDto.class);
 

@@ -1,15 +1,21 @@
 package com.ecommerce.project.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
     @JoinColumn(name="cart_id")
     private Cart cart;
 
@@ -18,7 +24,11 @@ public class CartItem {
     private Product product;
 
     private Integer quantity;
-    private Double discount;
-    private Double productPrice;
 
+    private Double cartItemTotalPrice;
+
+    public Double getCartItemTotalPrice() {
+        cartItemTotalPrice = product.getDiscountPrice() * this.quantity;
+        return cartItemTotalPrice;
+    }
 }

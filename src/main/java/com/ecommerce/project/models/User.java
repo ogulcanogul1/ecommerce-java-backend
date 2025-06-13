@@ -3,7 +3,6 @@ package com.ecommerce.project.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -50,7 +49,6 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private Set<Product> products = new HashSet<>();
 

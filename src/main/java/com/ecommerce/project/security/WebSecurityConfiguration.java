@@ -48,6 +48,7 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/api/carts/**").permitAll()
                         );
 
         http.formLogin(Customizer.withDefaults());

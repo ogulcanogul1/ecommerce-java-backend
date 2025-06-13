@@ -51,4 +51,14 @@ public class MyGlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(StockNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleAPIException(StockNotFoundException ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getMessage(),
+                request.getDescription(false),
+                LocalDateTime.now());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
 }
