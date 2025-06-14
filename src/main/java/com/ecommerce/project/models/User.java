@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,5 +55,9 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
+
+    @OneToMany(mappedBy = "user")
+    List<Order> orders;
+
 
 }

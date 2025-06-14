@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "addresses")
 @NoArgsConstructor
@@ -30,4 +32,7 @@ public class Address {
     @ManyToOne(optional = true, cascade = { jakarta.persistence.CascadeType.PERSIST, jakarta.persistence.CascadeType.MERGE })
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "address")
+    private List<Order> orders;
 }
