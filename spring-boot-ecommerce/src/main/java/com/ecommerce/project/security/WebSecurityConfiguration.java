@@ -43,14 +43,11 @@ public class WebSecurityConfiguration {
                         .requestMatchers("/api/signin/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                        .requestMatchers("/api/admin/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
-                        .requestMatchers("/assets/**").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/carts/**").permitAll()
-                        .requestMatchers("/api/address/**").permitAll()
-                        .requestMatchers("/api/order/**").permitAll()
+                        .requestMatchers("/api/carts/**").authenticated()
+                        .requestMatchers("/api/address/**").authenticated()
+                        .requestMatchers("/api/order/**").authenticated()
                         );
 
         http.formLogin(Customizer.withDefaults());
